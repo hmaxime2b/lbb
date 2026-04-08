@@ -68,13 +68,15 @@ def setup_render():
     scene.frame_start        = 1
     scene.frame_end          = KLAXON_CUT + 90   # marge plan 2
 
-    render.image_settings.file_format = 'FFMPEG'
-    render.ffmpeg.format     = 'MPEG4'
-    render.ffmpeg.codec      = 'H264'
-    render.ffmpeg.constant_rate_factor = 'HIGH'
-    render.filepath          = OUTPUT_PATH
+    # Sortie PNG séquence (compatible tous builds Blender)
+    # Importer ensuite dans Premiere : Fichier > Importer > sélectionner 0001.png
+    # → cocher "Séquence d'images" → Premiere assemble automatiquement
+    render.image_settings.file_format  = 'PNG'
+    render.image_settings.color_mode   = 'RGBA'   # alpha pour compositing
+    render.image_settings.compression  = 15        # 0=max qualité, 100=max compression
+    render.filepath                    = OUTPUT_PATH
 
-    print("✓ Render : 1920×1080 @ 30fps — EEVEE — H264")
+    print("✓ Render : 1920×1080 @ 30fps — EEVEE — PNG séquence (RGBA)")
 
 
 # ══════════════════════════════════════════════
